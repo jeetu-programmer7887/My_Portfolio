@@ -90,10 +90,13 @@ export default function About() {
               <div className="relative h-full w-full overflow-hidden bg-gradient-to-b from-white/5 to-transparent">
                 <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(245,240,232,0.14)_1px,transparent_1px)] [background-size:18px_18px]" />
                 <div className="absolute inset-8 border border-terminal/10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-mono text-sm text-mouse-gray"> [Portrait]
-                  </span>
-                </div>
+                <Image
+                  src="/my_portrait.png"
+                  alt="Jeetu Prasad"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
           </div>

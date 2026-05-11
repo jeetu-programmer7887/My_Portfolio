@@ -20,9 +20,9 @@ const stats = [
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 const SOCIALS = [
-  { label: "GH", full: "GitHub",   href: "https://github.com/jeetuprasad" },
-  { label: "LI", full: "LinkedIn", href: "https://linkedin.com/in/jeetuprasad" },
-  { label: "TW", full: "Twitter",  href: "https://twitter.com/jeetuprasad" },
+  { label: "GH", full: "GitHub",   href: "https://github.com/jeetu-programmer7887" },
+  { label: "LI", full: "LinkedIn", href: "https://www.linkedin.com/in/jeetu-prasad" },
+  { label: "TH", full: "Threads",  href: "https://www.threads.com/@jeetu_prasad143" },
 ];
 
 /* ─── Character Split Animation Helper ─── */

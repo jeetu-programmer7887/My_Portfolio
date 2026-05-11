@@ -5,7 +5,7 @@ import { useTypewriter } from "@/hooks/useTypewriter";
 const terminalLines = [
   "> initializing portfolio...",
   "> loading projects........done",
-  "> skills: Next.js, TypeScript, PostgreSQL, Gemini AI",
+  "> skills: Next.js, TypeScript, MongoDB, Gemini API",
   "> status: open to work \u2713",
 ];
 
