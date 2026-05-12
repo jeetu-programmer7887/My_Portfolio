@@ -5,9 +5,9 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { easeOutExpo } from "@/lib/utils";
 
 const contactDetails = [
-  { icon: "MAIL", text: "prasadjeetu760@email.com", href: "mailto:prasadjeetu760@email.com" },
-  { icon: "IN",   text: "linkedin.com/in/jeetuprasad", href: "https://www.linkedin.com/in/jeetu-prasad" },
-  { icon: "GH",   text: "github.com/jeetu-programmer7887", href: "https://github.com/jeetu-programmer7887" },
+  { icon: "MAIL", text: "Write an Email", href: "mailto:prasadjeetu760@email.com" },
+  { icon: "IN",   text: "Checkout LinkedIn", href: "https://www.linkedin.com/in/jeetu-prasad" },
+  { icon: "GH",   text: "Visit Github Profile", href: "https://github.com/jeetu-programmer7887" },
   { icon: "REM",  text: "Available for remote worldwide", href: null },
 ];
 

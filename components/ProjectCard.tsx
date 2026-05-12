@@ -116,9 +116,10 @@ export default function ProjectCard({ index, title, tags, description }: Project
             }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: easeOutExpo }}
           >
-            View
+            View Live
             <span className="transition-transform duration-300 group-hover/btn:translate-x-1">{"\u2192"}</span>
           </motion.button>
+
         </div>
       </div>
     </motion.div>
