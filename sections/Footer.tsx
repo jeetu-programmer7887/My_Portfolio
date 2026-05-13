@@ -28,6 +28,9 @@ const socialLinks = [
   },
 ];
 
+const RESUME_URL =
+  "https://drive.google.com/file/d/1dCDglAiGU27vlNOVWeH6GKD9M8XAFIAK/view?usp=sharing";
+
 export default function Footer() {
   const [time, setTime] = useState("");
 
@@ -41,6 +44,7 @@ export default function Footer() {
           minute: "2-digit",
           second: "2-digit",
           timeZoneName: "short",
+          timeZone: "Asia/Kolkata",
         }),
       );
     };
@@ -82,26 +86,50 @@ export default function Footer() {
             </motion.p>
           </div>
 
-          <div className="flex items-end justify-start lg:justify-end">
+          <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center lg:justify-end">
+            {/* RESUME BUTTON */}
+            <motion.a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="group relative h-[64px] min-w-[180px] overflow-hidden rounded-full border border-white/10 bg-white/[0.02] px-8 transition-all duration-500 hover:border-white/20"
+            >
+              <div className="relative z-10 flex h-full items-center justify-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-cream/60 transition-colors duration-500 group-hover:text-white">
+                <span>View CV</span>
+                <span className="text-[10px] opacity-40 transition-transform duration-500 group-hover:translate-x-1 group-hover:opacity-100">
+                  ↗
+                </span>
+              </div>
+              <div className="absolute inset-0 -translate-x-full bg-white/[0.08] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
+            </motion.a>
+
+            {/* GET IN TOUCH BUTTON */}
             <motion.a
               href="#contact"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="group relative overflow-hidden border rounded-full border-terminal/40 bg-terminal/5 px-10 py-5 font-mono text-sm uppercase tracking-[0.2em] text-terminal transition-all duration-500 hover:border-terminal hover:text-black"
+              className="group relative h-[64px] min-w-[220px] overflow-hidden rounded-full border border-terminal/40 bg-terminal/5 px-10 transition-all duration-500 hover:border-terminal hover:shadow-[0_0_30px_rgba(0,255,140,0.1)]"
             >
-              <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
-                Get in touch →
-              </span>
-              <div className="absolute inset-0 -translate-x-full bg-terminal transition-transform duration-500 group-hover:translate-x-0" />
+              <div className="relative z-10 flex h-full items-center justify-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-terminal transition-colors duration-500 group-hover:text-black">
+                <span>Get in touch</span>
+                <span className="transition-transform duration-500 group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+              <div className="absolute inset-0 -translate-x-full bg-terminal transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
             </motion.a>
           </div>
         </div>
 
         {/* ── MIDDLE: GRID ── */}
         <div className="grid grid-cols-1 gap-12 border-t border-white/[0.08] py-12 md:grid-cols-3 lg:grid-cols-4">
-          {/* Brand */}
+          {/* Column 1: Brand */}
           <div className="space-y-5">
             <div className="font-mono text-xl tracking-wider text-cream">
               jeetu.dev
@@ -120,7 +148,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
+          {/* Column 2: Navigation */}
           <div className="flex flex-col gap-3">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-cream">
               Navigation
@@ -136,7 +164,7 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Socials */}
+          {/* Column 3: Connect */}
           <div className="flex flex-col gap-3">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-cream">
               Connect
@@ -160,7 +188,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Local Time */}
+          {/* Column 4: Local Time (Fixed un-nesting) */}
           <div className="flex flex-col gap-3 md:items-start lg:items-end">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-cream">
               Local Time

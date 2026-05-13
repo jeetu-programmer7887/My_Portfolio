@@ -129,8 +129,8 @@ function SkillCard({
       }`}
     >
       {/* Animated corner accent */}
-      <div className="pointer-events-none absolute left-0 top-0 h-[1px] w-0 bg-terminal transition-all duration-700 group-hover:w-full" />
-      <div className="pointer-events-none absolute left-0 top-0 h-0 w-[1px] bg-terminal transition-all delay-100 duration-700 group-hover:h-full" />
+      <div className="pointer-events-none absolute left-0 top-0 h-[1px] w-0 bg-cream transition-all duration-700 group-hover:w-full" />
+      <div className="pointer-events-none absolute left-0 top-0 h-0 w-[1px] bg-cream transition-all delay-100 duration-700 group-hover:h-full" />
 
       {/* Subtle index number */}
       <span className="pointer-events-none absolute right-4 top-3 font-mono text-[11px] text-cream/10 select-none">

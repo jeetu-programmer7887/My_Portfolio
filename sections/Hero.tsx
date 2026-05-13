@@ -45,18 +45,32 @@ const SOCIALS = [
     full: "Threads",
     href: "https://www.threads.com/@jeetu_prasad143",
   },
+  {
+    label: "RE",
+    full: "Resume",
+    href: "https://drive.google.com/file/d/1dCDglAiGU27vlNOVWeH6GKD9M8XAFIAK/view?usp=sharing",
+  },
 ];
 
-// AI/Tech icons array with positions - using white, terminal green, and grey
 const TECH_ICONS = [
-  { Icon: Cpu, label: "CPU", color: "text-cream" },
-  { Icon: Brain, label: "AI", color: "text-terminal" },
-  { Icon: Code2, label: "Code", color: "text-cream/70" },
-  { Icon: Zap, label: "Performance", color: "text-terminal/80" },
-  { Icon: Database, label: "Database", color: "text-cream/60" },
-  { Icon: Network, label: "Network", color: "text-terminal/70" },
-  { Icon: GitBranch, label: "Git", color: "text-cream" },
-  { Icon: Sparkles, label: "Innovation", color: "text-terminal/90" },
+  { Icon: Brain,     label: "AI",          color: "text-terminal" },
+  { Icon: Code2,     label: "Code",        color: "text-cream/70" },
+  { Icon: Zap,       label: "Performance", color: "text-terminal/80" },
+  { Icon: Database,  label: "Database",    color: "text-cream/60" },
+  { Icon: Network,   label: "Network",     color: "text-terminal/90" },
+  { Icon: GitBranch, label: "Git",         color: "text-cream" },
+];
+
+const TECH_ICONS2 = [
+    { Icon: Cpu,       label: "CPU",         color: "text-cream" },
+  { Icon: Brain,     label: "AI",          color: "text-terminal" },
+  { Icon: Code2,     label: "Code",        color: "text-cream/70" },
+  { Icon: Zap,       label: "Performance", color: "text-terminal/80" },
+  { Icon: Database,  label: "Database",    color: "text-cream/60" },
+  { Icon: Network,   label: "Network",     color: "text-terminal/70" },
+  { Icon: GitBranch, label: "Git",         color: "text-cream" },
+    { Icon: Sparkles, label: "Innovation", color: "text-terminal/90" },
+
 ];
 
 /* ─── Character Split Animation Helper ─── */
@@ -92,7 +106,7 @@ function AnimatedName({
   );
 }
 
-/* ─── Floating Tech Icon Component ─── */
+/* ─── Floating Tech Icon — Desktop only (hidden on mobile) ─── */
 function FloatingTechIcon({
   Icon,
   index,
@@ -105,13 +119,13 @@ function FloatingTechIcon({
   const [isHovered, setIsHovered] = useState(false);
   const randomDelay = Math.random() * 0.5;
   const randomDuration = 4 + Math.random() * 2;
-  // Better spacing - icons in 2 columns with more vertical gap
   const yOffset = (index % 4) * 110 - 165;
   const xOffset = Math.floor(index / 4) * 90;
 
   return (
     <motion.div
-      className="absolute"
+      /* ── MOBILE FIX: hidden on mobile, shown md+ ── */
+      className="absolute hidden md:block"
       style={{
         left: `${100 + xOffset}px`,
         top: `${yOffset}px`,
@@ -119,10 +133,7 @@ function FloatingTechIcon({
       animate={
         shouldReduceMotion
           ? {}
-          : {
-              y: [0, -16, 0],
-              opacity: [0.5, 1, 0.5],
-            }
+          : { y: [0, -16, 0], opacity: [0.5, 1, 0.5] }
       }
       transition={{
         duration: randomDuration,
@@ -145,6 +156,51 @@ function FloatingTechIcon({
   );
 }
 
+/* ─── Mobile Tech Icons — horizontal scrolling strip ─── */
+function MobileTechStrip({
+  shouldReduceMotion,
+}: {
+  shouldReduceMotion: boolean | null;
+}) {
+  return (
+    /* shown only below md */
+    <motion.div
+      className="flex md:hidden py-4 gap-5 mt-6 mb-2 overflow-x-auto pb-1 scrollbar-none"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 1.6, ease: easeOutExpo }}
+      style={{ scrollbarWidth: "none" }}
+    >
+      {TECH_ICONS.map((item, i) => (
+        <motion.div
+          key={item.label}
+          className="shrink-0 flex flex-col items-center gap-1.5"
+          animate={
+            shouldReduceMotion
+              ? {}
+              : { y: [0, -6, 0], opacity: [0.6, 1, 0.6] }
+          }
+          transition={{
+            duration: 3.5 + i * 0.3,
+            delay: i * 0.15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <item.Icon
+            size={28}
+            className={`${item.color} drop-shadow-lg filter brightness-125`}
+            strokeWidth={1.2}
+          />
+          <span className="font-mono text-[8px] uppercase tracking-widest text-cream/40">
+            {item.label}
+          </span>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -163,22 +219,17 @@ export default function Hero() {
     scrollYProgress,
     [0, 1],
     shouldReduceMotion ? [0, 0] : [0, -100],
-  ); // Reduced pull
-
-  // FIX: Changed opacity from [1, 0] to [1, 0.4] so it remains visible but subtly recedes
+  );
   const terminalOpacity = useTransform(
     scrollYProgress,
     [0, 0.6],
     shouldReduceMotion ? [1, 1] : [1, 0.4],
   );
-
   const statsX = useTransform(
     scrollYProgress,
-    [0, 1],
+    [0.35, 1],
     shouldReduceMotion ? [0, 0] : [0, -120],
   );
-
-  // Icons move with scroll
   const iconsY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -252,7 +303,7 @@ export default function Hero() {
             <span className="pointer-events-none absolute right-9 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[10px] tracking-widest text-terminal/60 opacity-0 transition-opacity duration-200 group-hover:opacity-100 uppercase">
               {s.full}
             </span>
-            <span className="flex h-7 w-7 items-center justify-center border border-white/10 bg-white/[0.03] font-mono text-[9px] tracking-widest text-cream/30 transition-all duration-300 hover:border-terminal/60 hover:bg-terminal/5 hover:text-terminal">
+            <span className="flex h-7 w-7 items-center justify-center border border-terminal/40 bg-white/[0.03] font-mono text-[9px] tracking-widest text-cream transition-all duration-300 hover:border-terminal/60 hover:bg-terminal/5 hover:text-terminal">
               {s.label}
             </span>
           </motion.a>
@@ -261,7 +312,7 @@ export default function Hero() {
           className="mt-1 h-20 w-px"
           style={{
             background:
-              "linear-gradient(to bottom,color-mix(in srgb, var(--cream), transparent 90%),transparent)",
+              "linear-gradient(to bottom,color-mix(in srgb, var(--cream), transparent 20%),transparent)",
           }}
         />
       </div>
@@ -290,7 +341,7 @@ export default function Hero() {
             className="h-px max-w-[80px] flex-1"
             style={{
               background:
-                "linear-gradient(to right,color-mix(in srgb, var(--terminal), transparent 60%),transparent)",
+                "linear-gradient(to right,color-mix(in srgb, var(--terminal), transparent 20%),transparent)",
             }}
           />
         </motion.div>
@@ -327,12 +378,12 @@ export default function Hero() {
                 />
               </span>
 
-              {/* Tech Icons Container */}
+              {/* ── DESKTOP: absolute floating icons (unchanged) ── */}
               <motion.div
                 style={{ y: iconsY, willChange: "transform" }}
                 className="absolute -right-72 -top-1/4 -translate-y-1/2 w-80 h-96 pointer-events-auto"
               >
-                {TECH_ICONS.map((item, index) => (
+                {TECH_ICONS2.map((item, index) => (
                   <FloatingTechIcon
                     key={item.label}
                     Icon={
@@ -351,6 +402,9 @@ export default function Hero() {
           </h1>
         </motion.div>
 
+        {/* ── MOBILE FIX: horizontal icon strip shown only on mobile ── */}
+        <MobileTechStrip shouldReduceMotion={shouldReduceMotion} />
+
         {/* Divider with section index */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, scaleX: 0 }}
@@ -364,12 +418,12 @@ export default function Hero() {
           className="my-8 flex items-center gap-4"
         >
           <div
-            className="h-px flex-1 opacity-[0.18]"
+            className="h-px flex-1 opacity-[0.4]"
             style={{
               background: "linear-gradient(to right, var(--cream),transparent)",
             }}
           />
-          <span className="font-mono text-[10px] tabular-nums tracking-widest text-cream/20">
+          <span className="font-mono text-[10px] tabular-nums tracking-widest text-cream/50">
             001
           </span>
         </motion.div>
@@ -398,7 +452,7 @@ export default function Hero() {
 
         {/* Bottom row: Stats + CTA */}
         <div className="flex w-full flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
-          {/* Overhauled Stat grid */}
+          {/* Stat grid */}
           <motion.div
             style={{ x: statsX, willChange: "transform" }}
             className="w-full lg:max-w-3xl"
@@ -426,7 +480,7 @@ export default function Hero() {
                 {stats.map((stat, index) => (
                   <div
                     key={stat.label}
-                    className="relative px-6 first:pl-0 border-r border-cream/5 last:border-r-0 max-sm:[&:nth-child(2)]:border-r-0"
+                    className="relative px-6 first:pl-0 border-r border-cream/20 last:border-r-0 max-sm:[&:nth-child(2)]:border-r-0"
                   >
                     <StatCard
                       value={stat.value}
@@ -434,9 +488,6 @@ export default function Hero() {
                       label={stat.label}
                       delay={index * 150}
                     />
-                    <p className="mt-1 font-mono text-[8px] uppercase tracking-tighter text-cream/20">
-                      Metric_{index + 1}
-                    </p>
                   </div>
                 ))}
               </div>
