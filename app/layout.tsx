@@ -33,7 +33,10 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jeetu Prasad",
+  icons: {
+    icon: "/slash.png",
+  },
+  title: "Jeetu's Portfolio",
   description:
     "Full-stack developer from India, building fast, accessible, and obsessively well-crafted web & AI experiences. Open to full-time roles and freelance projects.",
 };

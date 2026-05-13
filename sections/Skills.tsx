@@ -200,7 +200,7 @@ export default function Skills() {
   const softSkillsInView = useInView(softSkillsRef, { once: true, amount: 0.2 });
 
   return (
-    <section id="skills" ref={sectionRef} className="relative px-6 py-32 md:px-12 lg:px-24">
+    <section id="skills" ref={sectionRef} className="relative px-6 py-16 md:px-12 lg:px-24">
       {/* Section header */}
       <div className="mb-20 flex items-center gap-4 md:gap-6">
         <motion.h2

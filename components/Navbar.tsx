@@ -4,18 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { label: "About",   href: "#about" },
-  { label: "Skills",  href: "#skills" },
-  { label: "Work",    href: "#work" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Work", href: "#work" },
   { label: "Contact", href: "#contact" },
 ];
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 export default function Navbar() {
-  const [scrolled, setScrolled]         = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [mobileOpen, setMobileOpen]      = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   /* ── scroll‑aware glass ── */
@@ -28,17 +28,29 @@ export default function Navbar() {
   /* ── active section via IntersectionObserver ── */
   useEffect(() => {
     const ids = navItems.map((n) => n.href.slice(1));
-    const observers = ids.map((id) => {
+
+    // A single observer is more efficient
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If it's intersecting, set it as active
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "-20% 0% -35% 0%"
+      }
+    );
+
+    ids.forEach((id) => {
       const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.35 },
-      );
-      obs.observe(el);
-      return obs;
+      if (el) observer.observe(el);
     });
-    return () => observers.forEach((obs) => obs?.disconnect());
+
+    return () => observer.disconnect();
   }, []);
 
   /* ── close mobile menu on outside click ── */
@@ -63,12 +75,12 @@ export default function Navbar() {
           "fixed left-0 right-0 top-0 z-50 px-6 md:px-12 transition-all duration-500",
           scrolled
             ? [
-                "py-3",
-                "bg-[rgba(8,8,8,0.65)]",
-                "backdrop-blur-2xl",
-                "border-b border-white/[0.06]",
-                "shadow-[0_8px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
-              ].join(" ")
+              "py-3",
+              "bg-[rgba(8,8,8,0.65)]",
+              "backdrop-blur-2xl",
+              "border-b border-white/[0.06]",
+              "shadow-[0_8px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
+            ].join(" ")
             : "py-5 bg-transparent",
         ].join(" ")}
       >
