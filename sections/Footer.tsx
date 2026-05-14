@@ -28,8 +28,7 @@ const socialLinks = [
   },
 ];
 
-const RESUME_URL =
-  "https://drive.google.com/file/d/1dCDglAiGU27vlNOVWeH6GKD9M8XAFIAK/view?usp=sharing";
+const RESUME_URL = "https://drive.google.com/file/d/1a8_87FbhGhImY-LQH_jK-3_9VtlQKIkO/view?usp=sharing"
 
 export default function Footer() {
   const [time, setTime] = useState("");
