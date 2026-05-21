@@ -62,15 +62,14 @@ const TECH_ICONS = [
 ];
 
 const TECH_ICONS2 = [
-    { Icon: Cpu,       label: "CPU",         color: "text-cream" },
+  { Icon: Cpu,       label: "CPU",         color: "text-cream" },
   { Icon: Brain,     label: "AI",          color: "text-terminal" },
   { Icon: Code2,     label: "Code",        color: "text-cream/70" },
   { Icon: Zap,       label: "Performance", color: "text-terminal/80" },
   { Icon: Database,  label: "Database",    color: "text-cream/60" },
   { Icon: Network,   label: "Network",     color: "text-terminal/70" },
   { Icon: GitBranch, label: "Git",         color: "text-cream" },
-    { Icon: Sparkles, label: "Innovation", color: "text-terminal/90" },
-
+  { Icon: Sparkles,  label: "Innovation",  color: "text-terminal/90" },
 ];
 
 /* ─── Character Split Animation Helper ─── */
@@ -124,7 +123,6 @@ function FloatingTechIcon({
 
   return (
     <motion.div
-      /* ── MOBILE FIX: hidden on mobile, shown md+ ── */
       className="absolute hidden md:block"
       style={{
         left: `${100 + xOffset}px`,
@@ -163,7 +161,6 @@ function MobileTechStrip({
   shouldReduceMotion: boolean | null;
 }) {
   return (
-    /* shown only below md */
     <motion.div
       className="flex md:hidden py-4 gap-5 mt-6 mb-2 overflow-x-auto pb-1 scrollbar-none"
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
@@ -239,39 +236,14 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-void"
+      // CHANGED: Replaced bg-void with bg-transparent to allow the background video to show
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-transparent"
     >
-      {/* ── Noise texture ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: "128px 128px",
-        }}
-      />
+      {/* DELETED: Noise texture overlay */}
+      {/* DELETED: Scanlines overlay */}
+      {/* DELETED: Terminal green spotlight overlay */}
 
-      {/* ── Scanlines ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg,transparent,transparent 2px,color-mix(in srgb, var(--cream), transparent 98%) 2px,color-mix(in srgb, var(--cream), transparent 98%) 4px)",
-        }}
-      />
-
-      {/* ── Terminal green spotlight ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 55% at 8% 12%, color-mix(in srgb, var(--terminal), transparent 94%) 0%, transparent 70%)",
-        }}
-      />
-
-      {/* ── Vertical rule — left ── */}
+      {/* ── Vertical rule — left (Kept because it's subtle and adds structure) ── */}
       <div
         aria-hidden="true"
         className="absolute left-6 top-0 z-10 hidden h-full w-px md:block"

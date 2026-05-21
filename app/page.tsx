@@ -1,3 +1,4 @@
+import ScrollVideo from "@/components/ScrollVide";
 import About from "@/sections/About";
 import Contact from "@/sections/Contact";
 import Footer from "@/sections/Footer";
@@ -8,6 +9,7 @@ import Skills from "@/sections/Skills";
 export default function Home() {
   return (
     <main className="relative">
+      <ScrollVideo/>
       <Hero />
       <About />
       <Skills />

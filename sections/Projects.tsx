@@ -88,10 +88,11 @@ export default function Projects() {
     <section 
       id="work" 
       ref={sectionRef} 
-      className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden bg-void"
+      // CHANGED: bg-void to bg-transparent
+      className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden bg-transparent"
     >
       {/* Ghost Background Text */}
-      <div className="absolute top-1/2 left-10 -translate-y-1/2 text-[15vw] font-display font-bold opacity-[0.02] select-none pointer-events-none text-cream uppercase leading-none">
+      <div className="absolute top-1/2 left-10 -translate-y-1/2 text-[15vw] font-display font-bold opacity-[0.05] select-none pointer-events-none text-cream uppercase leading-none">
         {projects[active].title.split(' ')[0]}
       </div>
 
@@ -193,7 +194,8 @@ export default function Projects() {
 
           {/* Right Side: Image (3 Columns) */}
           <div className="lg:col-span-3 order-1 lg:order-2">
-            <div className="relative aspect-[16/10] w-full overflow-hidden border border-white/5 bg-void-light shadow-2xl">
+            {/* CHANGED: Replaced bg-void-light with a subtle glass effect so the video peeks through the padding */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden border border-white/10 bg-black/20 backdrop-blur-md shadow-2xl">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={page}
@@ -212,7 +214,7 @@ export default function Projects() {
                     priority
                   />
                   {/* Subtle Overlay to make the UI pop */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
                 </motion.div>
               </AnimatePresence>
               
