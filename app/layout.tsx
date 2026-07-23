@@ -101,9 +101,9 @@ export const metadata: Metadata = {
 
   // --- Favicon ---
   icons: {
-    icon: "/slash.png",
-    shortcut: "/slash.png",
-    apple: "/slash.png",
+    icon: "/jp_logo.png",
+    shortcut: "/jp_logo.png",
+    apple: "/jp_logo.png",
   },
 };
 
@@ -118,7 +118,7 @@ const schemaData = {
   sameAs: [
     "https://www.linkedin.com/in/jeetu-prasad",
     "https://github.com/jeetu-programmer7887",
-    "https://www.threads.com/@jeetu_prasad143",
+    "https://x.com/jeetu_prasad78",
   ],
   address: {
     "@type": "PostalAddress",

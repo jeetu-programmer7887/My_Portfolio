@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 import Terminal from "@/components/Terminal";
+import { set } from "react-hook-form";
 
 const stats = [
   { value: 5, suffix: "+", label: "Projects Built" },
@@ -41,35 +42,35 @@ const SOCIALS = [
     href: "https://www.linkedin.com/in/jeetu-prasad",
   },
   {
-    label: "TH",
-    full: "Threads",
-    href: "https://www.threads.com/@jeetu_prasad143",
+    label: "X",
+    full: "Twitter",
+    href: "https://x.com/jeetu_prasad78",
   },
   {
     label: "RE",
     full: "Resume",
-    href: "https://drive.google.com/file/d/1dCDglAiGU27vlNOVWeH6GKD9M8XAFIAK/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1XGVzaYiwH9YicWD1eqo6D6t7uFpqcpAO/view?usp=drivesdk",
   },
 ];
 
 const TECH_ICONS = [
-  { Icon: Brain,     label: "AI",          color: "text-terminal" },
-  { Icon: Code2,     label: "Code",        color: "text-cream/70" },
-  { Icon: Zap,       label: "Performance", color: "text-terminal/80" },
-  { Icon: Database,  label: "Database",    color: "text-cream/60" },
-  { Icon: Network,   label: "Network",     color: "text-terminal/90" },
-  { Icon: GitBranch, label: "Git",         color: "text-cream" },
+  { Icon: Brain, label: "AI", color: "text-terminal" },
+  { Icon: Code2, label: "Code", color: "text-cream/70" },
+  { Icon: Zap, label: "Performance", color: "text-terminal/80" },
+  { Icon: Database, label: "Database", color: "text-cream/60" },
+  { Icon: Network, label: "Network", color: "text-terminal/90" },
+  { Icon: GitBranch, label: "Git", color: "text-cream" },
 ];
 
 const TECH_ICONS2 = [
-  { Icon: Cpu,       label: "CPU",         color: "text-cream" },
-  { Icon: Brain,     label: "AI",          color: "text-terminal" },
-  { Icon: Code2,     label: "Code",        color: "text-cream/70" },
-  { Icon: Zap,       label: "Performance", color: "text-terminal/80" },
-  { Icon: Database,  label: "Database",    color: "text-cream/60" },
-  { Icon: Network,   label: "Network",     color: "text-terminal/70" },
-  { Icon: GitBranch, label: "Git",         color: "text-cream" },
-  { Icon: Sparkles,  label: "Innovation",  color: "text-terminal/90" },
+  { Icon: Cpu, label: "CPU", color: "text-cream" },
+  { Icon: Brain, label: "AI", color: "text-terminal" },
+  { Icon: Code2, label: "Code", color: "text-cream/70" },
+  { Icon: Zap, label: "Performance", color: "text-terminal/80" },
+  { Icon: Database, label: "Database", color: "text-cream/60" },
+  { Icon: Network, label: "Network", color: "text-terminal/70" },
+  { Icon: GitBranch, label: "Git", color: "text-cream" },
+  { Icon: Sparkles, label: "Innovation", color: "text-terminal/90" },
 ];
 
 /* ─── Character Split Animation Helper ─── */
@@ -236,13 +237,8 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      // CHANGED: Replaced bg-void with bg-transparent to allow the background video to show
       className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-transparent"
     >
-      {/* DELETED: Noise texture overlay */}
-      {/* DELETED: Scanlines overlay */}
-      {/* DELETED: Terminal green spotlight overlay */}
-
       {/* ── Vertical rule — left (Kept because it's subtle and adds structure) ── */}
       <div
         aria-hidden="true"

@@ -22,9 +22,9 @@ const socialLinks = [
     label: "LinkedIn",
   },
   {
-    code: "TH",
-    href: "https://www.threads.com/@jeetu_prasad143",
-    label: "Threads",
+    code: "X",
+    href: "https://x.com/jeetu_prasad78",
+    label: "Twitter",
   },
 ];
 
