@@ -96,6 +96,12 @@ My_Portfolio/
 - **Stack:** React.js · Tailwind CSS · MongoDB · Razorpay
 - 🌐 [Live Demo](https://zyro-jewellery.vercel.app) · 💻 [GitHub](https://github.com/jeetu-programmer7887/ZYRO-TheJewelBox.git)
 
+### 🔷 JSocial *(Real-Time Social Platform)*
+> A full-stack social network featuring instant messaging, live notifications, and secure JWT authentication powered by a robust WebSocket architecture.
+
+- **Stack:** React · Socket.IO · MongoDB · Node.js
+- 🌐 [Live Demo](https://jeesocial.netlify.app) · 💻 [GitHub](https://github.com/jeetu-programmer7887/jsocial.git)
+
 ### 🔷 JPsyche *(AI Mental Health Platform)*
 > An AI-driven mental health support application leveraging Google Gemini and Neon PostgreSQL for empathetic, intelligent conversations.
 
