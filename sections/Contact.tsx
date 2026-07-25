@@ -73,7 +73,7 @@ export default function Contact() {
   const handleFormSubmit = (data: any) => {
     setIsSubmitting(true);
     onSubmit(data);
-  };
+  };  
 
   return (
     <section id="contact" ref={sectionRef} className="relative min-h-screen overflow-hidden py-8">

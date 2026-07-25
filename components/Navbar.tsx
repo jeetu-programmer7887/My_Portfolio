@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -93,8 +94,8 @@ export default function Navbar() {
           <nav className="flex items-center justify-between">
 
             {/* ── Brand ── */}
-            <a
-              href="#"
+            <Link
+              href="/"
               className="group flex items-center gap-2 font-mono text-[12.5px] tracking-[0.12em] text-cream transition-colors duration-300 hover:text-terminal ml-3 shrink-0"
             >
               <span className="relative">
@@ -102,7 +103,7 @@ export default function Navbar() {
                 <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-terminal transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
               </span>
               <span className="inline-block h-[13px] w-[7px] animate-blink rounded-[1px] bg-terminal shadow-[0_0_8px_rgba(57,255,20,0.6)]" />
-            </a>
+            </Link>
 
             {/* ── Desktop nav links ── */}
             <div className="hidden items-center gap-0.5 md:flex">

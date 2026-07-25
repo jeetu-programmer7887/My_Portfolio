@@ -60,7 +60,7 @@ export default function Projects() {
     <section
       id="work"
       ref={sectionRef}
-      className="relative min-h-screen py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden bg-transparent"
+      className="relative min-h-screen py-18 px-6 md:px-12 lg:px-24 flex flex-col justify-center overflow-hidden bg-transparent"
     >
       {/* Ghost Background Text */}
       <div className="absolute top-1/2 left-10 -translate-y-1/2 text-[15vw] font-display font-bold opacity-[0.05] select-none pointer-events-none text-cream uppercase leading-none">
@@ -139,12 +139,12 @@ export default function Projects() {
                 </p>
 
                 <div className="flex flex-col xl:flex-row flex-wrap gap-4 pt-4">
-                  <Link
+                  <a
                     href={`/projects/${projects[active].slug}`}
                     className="px-8 py-4 bg-terminal text-void font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-cream transition-colors"
                   >
                     Read Case Study
-                  </Link>
+                  </a>
                   <a
                     href={projects[active].live}
                     target="_blank"
