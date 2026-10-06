@@ -1,0 +1,131 @@
+@config "../../tailwind.services.config.ts";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Services site theme — taken from the "Web Development Services" deck.
+   Light is the default; [data-theme="dark"] is set by the theme toggle
+   (and before first paint by the inline script in the layout). */
+@layer base {
+  :root,
+  :root[data-theme="light"] {
+    --canvas: 250 246 241; /* #FAF6F1 cream */
+    --surface: 255 255 255;
+    --surface-2: 243 228 216; /* #F3E4D8 peach chip */
+    --ink: 43 31 24; /* #2B1F18 dark brown */
+    --ink-muted: 110 94 83; /* #6E5E53 */
+    --line: 234 223 212; /* #EADFD4 */
+    --accent: 166 90 46; /* #A65A2E terracotta */
+    --accent-soft: 217 139 94; /* #D98B5E */
+    --accent-ink: 255 255 255;
+    --inverse: 43 31 24;
+    --inverse-ink: 250 243 234;
+    --inverse-muted: 201 184 168;
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    --canvas: 36 26 20; /* #241A14 */
+    --surface: 48 35 28; /* #30231C */
+    --surface-2: 66 48 38; /* #423026 */
+    --ink: 250 243 234; /* #FAF3EA */
+    --ink-muted: 201 184 168; /* #C9B8A8 */
+    --line: 78 59 47; /* #4E3B2F */
+    --accent: 222 140 94; /* #DE8C5E */
+    --accent-soft: 240 170 130; /* #F0AA82 — light enough for text on dark panels */
+    --accent-ink: 36 26 20;
+    --inverse: 64 45 34; /* #402D22 */
+    --inverse-ink: 250 243 234;
+    --inverse-muted: 214 196 180;
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: rgb(var(--canvas));
+    color: rgb(var(--ink));
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Keep anchored sections clear of the sticky header. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-accent;
+  }
+
+  .eyebrow::before {
+    content: "";
+    @apply h-[3px] w-8 rounded-full bg-accent;
+  }
+
+  .heading-xl {
+    @apply text-4xl font-extrabold leading-[1.02] tracking-[-0.035em] sm:text-5xl lg:text-6xl;
+  }
+
+  .heading-lg {
+    @apply text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-4xl lg:text-5xl;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(43_31_24/0.04),0_12px_32px_-18px_rgb(43_31_24/0.18)];
+  }
+
+  .icon-chip {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-accent-ink hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-10px_rgb(var(--accent)/0.7)];
+  }
+
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:-translate-y-0.5 hover:border-accent/50;
+  }
+
+  .link-accent {
+    @apply inline-flex items-center gap-1.5 font-bold text-accent underline-offset-4 hover:underline;
+  }
+}
