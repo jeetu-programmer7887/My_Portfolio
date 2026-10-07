@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ScrollVideo from "@/components/portfolio/ScrollVide";
+import BackgroundImage from "@/components/portfolio/BackgroundImage";
 import About from "@/sections/portfolio/About";
 import Contact from "@/sections/portfolio/Contact";
 import Footer from "@/sections/portfolio/Footer";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function PortfolioHome() {
   return (
     <main className="relative">
-      <ScrollVideo/>
+      <BackgroundImage />
       <Hero />
       <About />
       <Skills />

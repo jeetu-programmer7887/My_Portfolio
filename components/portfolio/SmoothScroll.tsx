@@ -21,9 +21,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let frameId: number;
     lenisRef.current = lenis;
 
-    lenis.on("scroll", () => {
-      window.dispatchEvent(new Event("scroll"));
-    });
+    // No synthetic "scroll" re-dispatch: Lenis moves the real window scroll
+    // position, so native scroll events already fire. Re-dispatching fed back
+    // into Lenis's own listener and overflowed the stack on scrollbar/keyboard
+    // /anchor scrolling.
 
     const raf = (time: number) => {
       lenis.raf(time);
