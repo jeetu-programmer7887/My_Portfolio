@@ -10,7 +10,14 @@ export const site = {
   whatsappHref: "https://wa.me/917887783809",
   location: "Mumbai, India",
   portrait: "/my_portrait.png",
-  logo: "/jp_logo.png",
+  logo: "/jp_logo.png", // portfolio favicon
+  // Services-site (default) favicon set, generated from /services_logo.png.
+  servicesIcons: {
+    icon32: "/services-icon-32.png",
+    icon512: "/services-icon-512.png",
+    apple: "/services-apple-icon.png",
+    ico: "/favicon.ico",
+  },
   socials: {
     github: "https://github.com/jeetu-programmer7887",
     linkedin: "https://www.linkedin.com/in/jeetu-prasad",

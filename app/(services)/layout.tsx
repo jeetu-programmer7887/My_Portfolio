@@ -63,9 +63,13 @@ export const metadata: Metadata = {
     creator: site.socials.xHandle,
   },
   icons: {
-    icon: site.logo,
-    shortcut: site.logo,
-    apple: site.logo,
+    icon: [
+      { url: site.servicesIcons.ico, sizes: "any" },
+      { url: site.servicesIcons.icon32, type: "image/png", sizes: "32x32" },
+      { url: site.servicesIcons.icon512, type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: site.servicesIcons.ico,
+    apple: { url: site.servicesIcons.apple, sizes: "180x180" },
   },
 };
 
@@ -92,7 +96,7 @@ const schemaData = {
       email: site.email,
       telephone: "+917887783809",
       image: `${site.url}${site.portrait}`,
-      logo: `${site.url}${site.logo}`,
+      logo: `${site.url}${site.servicesIcons.icon512}`,
       priceRange: "₹9,999 – ₹39,999",
       founder: { "@id": `${site.url}/#person` },
       address: {
