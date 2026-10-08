@@ -180,12 +180,13 @@ export default function Hero() {
           data-fade=""
           style={{ "--i": 5 } as React.CSSProperties}
           aria-hidden="true"
-          className="relative h-[clamp(460px,44vw,560px)]"
+          className="relative flex flex-col"
         >
           <div className="absolute inset-[8%_4%_0_10%] rounded-full bg-[radial-gradient(closest-side,var(--accent-soft),transparent)] blur-[10px]" />
 
-          {/* Browser mockup of a made-up clinic site. */}
-          <div data-depth="0.6" className="absolute left-0 top-11 w-[86%] overflow-hidden rounded-[28px] border border-line bg-surface shadow-lg">
+          {/* Browser mockup of a made-up clinic site. The cards stack in normal flow so the
+              funnel card can never grow over the mockup's buttons. */}
+          <div data-depth="0.6" className="relative mt-16 w-[92%] overflow-hidden rounded-[28px] border border-line bg-surface shadow-lg sm:w-[86%]">
             <div className="flex items-center gap-2.5 border-b border-line bg-surface-2 px-3.5 py-3">
               <span className="flex gap-1.5">
                 {[0, 1, 2].map((d) => (
@@ -200,7 +201,7 @@ export default function Hero() {
                 Concept demo
               </span>
             </div>
-            <div className="p-[clamp(20px,2.4vw,30px)]">
+            <div className="p-[clamp(20px,2.4vw,30px)] pb-[clamp(36px,3.6vw,44px)]">
               <p className="m-0 flex items-center gap-2 text-xs font-semibold text-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-ok" />
                 Andheri West · Open today till 8 pm
@@ -243,18 +244,19 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Live funnel card. */}
+          {/* Live funnel card: tucks only into the mockup's bottom padding, below its buttons. */}
           <div
             data-depth="1"
-            className="absolute bottom-0 right-0 w-[min(62%,330px)] rounded-[26px] bg-ink p-[18px] text-canvas shadow-lg"
+            className="relative -mt-6 ml-auto w-[min(80%,350px)] rounded-[26px] bg-ink p-[18px] text-canvas shadow-lg"
           >
-            <div className="mb-2.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-[.16em]">
+            <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[.16em]">
               <span className="text-inv-accent">The funnel</span>
               <span className="flex items-center gap-1.5 text-inv-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-live" />
                 Live
               </span>
             </div>
+            <p className="m-0 mb-2 mt-1 text-xs text-inv-muted">What happens after someone lands on the site</p>
             {pipeline.map((row, i) => {
               const done = i < step;
               const active = i === step;
