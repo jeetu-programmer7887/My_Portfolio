@@ -4,75 +4,245 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Services site theme — taken from the "Web Development Services" deck.
+/* Services site theme ("Services Site v3" design).
    Light is the default; [data-theme="dark"] is set by the theme toggle
-   (and before first paint by the inline script in the layout). */
+   (and before first paint by the inline script in the layout).
+   "chrome" = the floating header capsule, "foot" = the footer panel — both
+   are drawn in the opposite theme to the page. */
 @layer base {
   :root,
   :root[data-theme="light"] {
-    --canvas: 250 246 241; /* #FAF6F1 cream */
-    --surface: 255 255 255;
-    --surface-2: 243 228 216; /* #F3E4D8 peach chip */
-    --ink: 43 31 24; /* #2B1F18 dark brown */
-    --ink-muted: 110 94 83; /* #6E5E53 */
-    --line: 234 223 212; /* #EADFD4 */
-    --accent: 166 90 46; /* #A65A2E terracotta */
-    --accent-soft: 217 139 94; /* #D98B5E */
-    --accent-ink: 255 255 255;
-    --inverse: 43 31 24;
-    --inverse-ink: 250 243 234;
-    --inverse-muted: 201 184 168;
+    --canvas: #f2ebe2;
+    --surface: #ffffff;
+    --surface-2: #faf6f1;
+    --tint: #e8dacb;
+    --ink: #2b1f18;
+    --muted: #6b5a4e;
+    --line: rgba(43, 31, 24, 0.09);
+    --accent: #a65a2e;
+    --accent-ink: #ffffff;
+    --accent-soft: #f5e2d4;
+    --inv-accent: #f0aa82;
+    --inv-muted: #c9b8a8;
+    --ok: #2f8f5b;
+    --shadow-sm: 0 1px 2px rgba(43, 31, 24, 0.06), 0 2px 8px -2px rgba(43, 31, 24, 0.06);
+    --shadow: 0 1px 2px rgba(43, 31, 24, 0.05), 0 12px 28px -12px rgba(43, 31, 24, 0.16),
+      0 32px 64px -32px rgba(43, 31, 24, 0.18);
+    --shadow-lg: 0 2px 4px rgba(43, 31, 24, 0.05), 0 24px 48px -16px rgba(43, 31, 24, 0.22),
+      0 60px 100px -40px rgba(43, 31, 24, 0.28);
+    --glass: rgba(36, 26, 20, 0.58);
+    --chrome-ink: #faf3ea;
+    --chrome-muted: #cdbcad;
+    --chrome-accent: #f0aa82;
+    --chrome-accent-ink: #241a14;
+    --chrome-line: rgba(250, 243, 234, 0.14);
+    --foot: #241a14;
+    --foot-ink: #faf3ea;
+    --foot-muted: #c9b8a8;
+    --foot-accent: #f0aa82;
+    --foot-line: rgba(250, 243, 234, 0.12);
     color-scheme: light;
   }
 
   :root[data-theme="dark"] {
-    --canvas: 36 26 20; /* #241A14 */
-    --surface: 48 35 28; /* #30231C */
-    --surface-2: 66 48 38; /* #423026 */
-    --ink: 250 243 234; /* #FAF3EA */
-    --ink-muted: 201 184 168; /* #C9B8A8 */
-    --line: 78 59 47; /* #4E3B2F */
-    --accent: 222 140 94; /* #DE8C5E */
-    --accent-soft: 240 170 130; /* #F0AA82 — light enough for text on dark panels */
-    --accent-ink: 36 26 20;
-    --inverse: 64 45 34; /* #402D22 */
-    --inverse-ink: 250 243 234;
-    --inverse-muted: 214 196 180;
+    --canvas: #17110d;
+    --surface: #231a14;
+    --surface-2: #1d1611;
+    --tint: #33261d;
+    --ink: #faf3ea;
+    --muted: #bba999;
+    --line: rgba(250, 243, 234, 0.08);
+    --accent: #e39368;
+    --accent-ink: #17110d;
+    --accent-soft: rgba(227, 147, 104, 0.12);
+    --inv-accent: #a65a2e;
+    --inv-muted: #6b5a4e;
+    --ok: #5fcb8e;
+    --shadow-sm: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+    --shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 16px 36px -14px rgba(0, 0, 0, 0.65);
+    --shadow-lg: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 70px -20px rgba(0, 0, 0, 0.75);
+    --glass: rgba(250, 246, 241, 0.66);
+    --chrome-ink: #2b1f18;
+    --chrome-muted: #6b5a4e;
+    --chrome-accent: #a65a2e;
+    --chrome-accent-ink: #ffffff;
+    --chrome-line: rgba(43, 31, 24, 0.12);
+    --foot: #f6efe7;
+    --foot-ink: #2b1f18;
+    --foot-muted: #6b5a4e;
+    --foot-accent: #a65a2e;
+    --foot-line: rgba(43, 31, 24, 0.12);
     color-scheme: dark;
   }
 
+  /* Fills and rules on the ink-coloured panels; the same in both themes. */
+  :root {
+    --inv-fill: rgba(127, 110, 98, 0.14);
+    --inv-line: rgba(127, 110, 98, 0.3);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: rgb(var(--canvas));
-    color: rgb(var(--ink));
+    margin: 0;
+    background-color: var(--canvas);
+    color: var(--ink);
     font-family: var(--font-archivo), system-ui, sans-serif;
-    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.55;
+    /* clip (not hidden) so position: sticky keeps working. */
+    overflow-x: clip;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
-  /* Keep anchored sections clear of the sticky header. */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Keep anchored sections clear of the floating header. */
   [id] {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 20px;
   }
 
   ::selection {
-    background: rgb(var(--accent) / 0.25);
+    background: var(--accent);
+    color: var(--accent-ink);
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--accent));
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 6px;
+  }
+
+  /* Lenis smooth scrolling. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* The theme toggle reveals the new theme as a growing circle (see ThemeToggle). */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}
+
+/* ---- Motion ------------------------------------------------------------
+   html[data-motion] is set before first paint only when the visitor hasn't asked
+   for reduced motion, so without it every element simply renders in place. */
+@layer base {
+  /* Scroll reveals — MotionController adds [data-in] as each element enters the
+     viewport, then [data-done] once it has settled so its own hover transitions work. */
+  html[data-motion] [data-reveal]:not([data-in]) {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+
+  html[data-motion] [data-reveal][data-in]:not([data-done]) {
+    transition: opacity 1s var(--ease-out) var(--rd, 0ms), transform 1.1s var(--ease-out) var(--rd, 0ms);
+  }
+
+  html[data-motion] [data-bar]:not([data-in]) {
+    transform: scaleX(0);
+  }
+
+  html[data-motion] [data-bar][data-in] {
+    transition: transform 1.3s var(--ease-in-out) 150ms;
+  }
+
+  /* Page intro — runs on every page as it mounts (first load and after a transition). */
+  html[data-motion] [data-line] {
+    animation: jp-line 1.2s var(--ease-out) both;
+    animation-delay: calc(150ms + var(--i, 0) * 90ms);
+  }
+
+  html[data-motion] [data-fade] {
+    animation: jp-fade 1.1s var(--ease-out) both;
+    animation-delay: calc(350ms + var(--i, 0) * 85ms);
+  }
+
+  html[data-motion] [data-drop] {
+    animation: jp-drop 1.1s var(--ease-out) 200ms both;
+  }
+
+  @keyframes jp-line {
+    from {
+      transform: translate3d(0, 110%, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes jp-fade {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes jp-drop {
+    from {
+      opacity: 0;
+      transform: translateY(-130%);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* "Live" dot ripple. */
+  @keyframes jp-pulse {
+    from {
+      box-shadow: 0 0 0 0 rgba(63, 166, 107, 0.5);
+    }
+    to {
+      box-shadow: 0 0 0 7px rgba(63, 166, 107, 0);
+    }
+  }
+
+  @keyframes jp-menu {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes jp-menu-item {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
     *,
     *::before,
     *::after {
@@ -85,47 +255,90 @@
 
 @layer components {
   .container-site {
-    @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
+    @apply mx-auto box-border w-full max-w-site px-[clamp(20px,4vw,48px)];
   }
 
-  .eyebrow {
-    @apply flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-accent;
+  /* Vertical rhythm of an open section and of a rounded panel. */
+  .section-y {
+    @apply py-[clamp(80px,10vw,140px)];
   }
 
-  .eyebrow::before {
-    content: "";
-    @apply h-[3px] w-8 rounded-full bg-accent;
+  .panel {
+    @apply mx-[clamp(8px,1.5vw,20px)] rounded-[44px] transition-colors duration-500;
   }
 
-  .heading-xl {
-    @apply text-4xl font-extrabold leading-[1.02] tracking-[-0.035em] sm:text-5xl lg:text-6xl;
+  .panel-y {
+    @apply py-[clamp(72px,9vw,120px)];
   }
 
-  .heading-lg {
-    @apply text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-4xl lg:text-5xl;
+  .h-section {
+    @apply m-0 text-[clamp(32px,3.6vw,54px)] font-[750] leading-[1.02] tracking-[-0.035em] [font-stretch:108%] [text-wrap:balance];
   }
 
-  .card {
-    @apply rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(43_31_24/0.04),0_12px_32px_-18px_rgb(43_31_24/0.18)];
+  .lede {
+    @apply m-0 text-[17px] leading-[1.6] text-muted [text-wrap:pretty];
   }
 
-  .icon-chip {
-    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent;
+  .caps {
+    @apply text-[11.5px] font-bold uppercase tracking-[.14em];
   }
 
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  .card-lg {
+    @apply rounded-[28px] border border-line bg-surface shadow;
   }
 
-  .btn-primary {
-    @apply btn bg-accent text-accent-ink hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-10px_rgb(var(--accent)/0.7)];
+  .card-soft {
+    @apply rounded-[24px] border border-line bg-surface-2;
   }
 
-  .btn-secondary {
-    @apply btn border border-line bg-surface text-ink hover:-translate-y-0.5 hover:border-accent/50;
+  .icon-tile {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] bg-accent-soft text-accent;
   }
 
-  .link-accent {
-    @apply inline-flex items-center gap-1.5 font-bold text-accent underline-offset-4 hover:underline;
+  .chip {
+    @apply rounded-full border border-line px-3 py-[7px] text-[13.5px] font-semibold;
+  }
+
+  /* Pill button with a round "knob" holding the icon on the right. */
+  .btn-pill {
+    @apply inline-flex h-14 cursor-pointer items-center justify-between gap-5 rounded-full pl-6 pr-1.5 text-[15px] font-bold transition-[transform,box-shadow,filter] duration-500 ease-out hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0;
+  }
+
+  .btn-knob {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-ink shadow-[0_10px_24px_-10px_var(--accent),inset_0_1px_0_rgba(255,255,255,.18)] hover:shadow-[0_16px_32px_-12px_var(--accent),inset_0_1px_0_rgba(255,255,255,.18)];
+  }
+
+  .btn-plain {
+    @apply inline-flex h-14 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface px-6 text-[15px] font-bold text-ink shadow-sm transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-0.5 hover:shadow;
+  }
+
+  .link-underline {
+    @apply inline-flex items-center gap-2.5 border-b-[1.5px] border-current pb-[3px] text-[14.5px] font-bold transition-colors hover:text-accent;
+  }
+
+  .field {
+    @apply box-border w-full rounded-[14px] border border-line bg-surface-2 px-4 py-3.5 text-base font-normal text-ink outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted focus:border-accent focus:shadow-[0_0_0_4px_var(--accent-soft)];
+  }
+}
+
+@layer utilities {
+  .stretch-106 {
+    font-stretch: 106%;
+  }
+  .stretch-108 {
+    font-stretch: 108%;
+  }
+  .stretch-110 {
+    font-stretch: 110%;
+  }
+  .stretch-112 {
+    font-stretch: 112%;
+  }
+  .stretch-115 {
+    font-stretch: 115%;
   }
 }

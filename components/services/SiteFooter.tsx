@@ -1,13 +1,8 @@
-import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import TransitionLink from "./motion/TransitionLink";
+import { navItems } from "@/lib/servicesNav";
 import { site, whatsappLink } from "@/lib/site";
-
-const explore = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/#work" },
-  { label: "Pricing", href: "/services#pricing" },
-  { label: "Contact", href: "/contact" },
-];
 
 const socials = [
   { label: "GitHub", href: site.socials.github },
@@ -17,71 +12,94 @@ const socials = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-inverse text-inverse-ink">
-      <div className="container-site grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
-          <p className="text-2xl font-extrabold tracking-[-0.02em]">Jeetu Prasad</p>
-          <p className="mt-1 text-xs font-bold uppercase tracking-[0.22em] text-accent-soft">
-            Web development · Mumbai
-          </p>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-inverse-muted">
-            Fast, mobile-friendly websites and web apps for local businesses: built, launched and
-            looked after.
-          </p>
-        </div>
+    <footer className="mx-[clamp(8px,1.5vw,20px)] mb-[clamp(8px,1.5vw,20px)] overflow-hidden rounded-[44px] bg-foot text-foot-ink transition-colors duration-500">
+      <div className="container-site pt-[clamp(56px,7vw,96px)]">
+        <div className="flex flex-wrap gap-x-16 gap-y-10">
+          <div className="flex-[1.6_1_320px]">
+            <Image
+              src={site.servicesIcons.icon512}
+              alt=""
+              width={52}
+              height={52}
+              className="block h-[52px] w-[52px] rounded-full bg-[#FAF6F1]"
+            />
+            <p className="mt-5 max-w-[400px] text-lg leading-normal [text-wrap:pretty]">
+              Websites that build trust. Funnels that turn visitors into customers. Built directly by one
+              developer in Mumbai.
+            </p>
+          </div>
 
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-inverse-muted">Explore</p>
-          <ul className="mt-4 space-y-3">
-            {explore.map((item) => (
-              <li key={item.label}>
-                <Link href={item.href} className="text-sm font-semibold hover:text-accent-soft">
-                  {item.label}
-                </Link>
+          <div className="flex-[1_1_160px]">
+            <p className="mb-3.5 text-[11.5px] font-bold uppercase tracking-[.18em] text-foot-muted">Explore</p>
+            <ul className="flex flex-col gap-[9px]">
+              {navItems.map((item) => (
+                <li key={item.anchor}>
+                  <TransitionLink
+                    href={`/#${item.anchor}`}
+                    label={item.label}
+                    className="text-[15px] font-semibold transition-colors duration-300 hover:text-foot-accent"
+                  >
+                    {item.label}
+                  </TransitionLink>
+                </li>
+              ))}
+              <li>
+                <TransitionLink
+                  href="/contact"
+                  label="Free audit"
+                  className="text-[15px] font-semibold transition-colors duration-300 hover:text-foot-accent"
+                >
+                  Free audit
+                </TransitionLink>
               </li>
-            ))}
-          </ul>
+            </ul>
+          </div>
+
+          <div className="flex-[1_1_240px]">
+            <p className="mb-3.5 text-[11.5px] font-bold uppercase tracking-[.18em] text-foot-muted">Get in touch</p>
+            <ul className="flex flex-col gap-[9px] text-[15px] font-semibold">
+              <li>
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-foot-accent">
+                  WhatsApp: {site.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={site.phoneHref} className="hover:text-foot-accent">
+                  Call: {site.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${site.email}`} className="break-all hover:text-foot-accent">
+                  {site.email}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-inverse-muted">Get in touch</p>
-          <ul className="mt-4 space-y-3 text-sm font-semibold">
-            <li>
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-accent-soft">
-                WhatsApp: {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a href={site.phoneHref} className="hover:text-accent-soft">
-                Call: {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.email}`} className="break-all hover:text-accent-soft">
-                {site.email}
-              </a>
-            </li>
-          </ul>
-        </div>
+        <p
+          aria-hidden="true"
+          className="stretch-110 mt-[clamp(48px,7vw,96px)] whitespace-nowrap text-[clamp(52px,10.6vw,152px)] font-extrabold leading-[0.8] tracking-[-0.055em]"
+        >
+          Jeetu Prasad<span className="text-foot-accent">.</span>
+        </p>
       </div>
 
-      <div className="border-t border-inverse-ink/10">
-        <div className="container-site flex flex-col gap-5 py-6 text-sm md:flex-row md:items-center md:justify-between">
-          <a
-            href="/portfolio"
-            className="group inline-flex items-center gap-2 text-inverse-muted transition-colors hover:text-inverse-ink"
-          >
-            Looking for a developer to hire? See my technical portfolio
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+      <div className="mt-[clamp(20px,3vw,36px)] border-t border-foot-line">
+        <div className="container-site flex flex-wrap items-center justify-between gap-x-8 gap-y-3.5 py-5 text-[13.5px] text-foot-muted">
+          {/* Plain <a>: the developer portfolio is a separate site with its own layout. */}
+          <a href="/portfolio" className="group flex items-center gap-2 transition-colors hover:text-foot-ink">
+            Hiring a developer? See my technical portfolio
+            <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
           </a>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-inverse-muted">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {socials.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold hover:text-inverse-ink"
+                className="font-semibold transition-colors hover:text-foot-ink"
               >
                 {s.label}
               </a>

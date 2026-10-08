@@ -17,6 +17,9 @@ export interface ShowcaseItem {
   benefits: string[];
   impact: string[];
   goodFitFor: string[];
+  /** Short "for your business" points shown on the home page. */
+  uses: string[];
+  liveHost: string;
   note?: string;
 }
 
@@ -24,12 +27,18 @@ export const showcase: ShowcaseItem[] = [
   {
     slug: "zyro",
     name: "ZYRO Jewel Box",
-    kind: "Online store",
-    summary: "A premium online jewellery store with a built-in AI stylist.",
+    kind: "Online store concept",
+    summary: "A premium jewellery store with a product catalogue, checkout and a built-in AI stylist.",
     intro:
       "ZYRO is a complete online store for a jewellery brand. Customers can browse the collection, get personal styling advice, see how a piece could look on them, and pay online. Behind the scenes, orders, emails and rewards run on their own.",
     image: "/project1.png",
     live: "https://zyro-jewellery.vercel.app",
+    liveHost: "zyro-jewellery.vercel.app",
+    uses: [
+      "Show your products beautifully on any phone",
+      "Let customers enquire or buy in a few taps",
+      "Answer common questions automatically",
+    ],
     features: [
       {
         title: "Smooth, beautiful catalogue",
@@ -72,12 +81,18 @@ export const showcase: ShowcaseItem[] = [
   {
     slug: "jsocial",
     name: "JSocial",
-    kind: "Community web app",
-    summary: "A private community app with instant chat and live notifications.",
+    kind: "Community app concept",
+    summary: "A private member space with instant chat and live notifications.",
     intro:
       "JSocial is a members-only community app. People sign up, follow each other, share updates and chat in real time, with notifications that arrive the moment something happens.",
     image: "/project2.png",
     live: "https://jeesocial.netlify.app",
+    liveHost: "jeesocial.netlify.app",
+    uses: [
+      "A members area for coaches and course creators",
+      "Keep clients engaged between sessions",
+      "Announcements that actually get seen",
+    ],
     features: [
       {
         title: "Instant messaging",
@@ -115,12 +130,18 @@ export const showcase: ShowcaseItem[] = [
   {
     slug: "jpsyche",
     name: "JPsyche",
-    kind: "AI chat assistant",
-    summary: "A friendly AI chat assistant that talks and listens in Hindi and English.",
+    kind: "AI assistant concept",
+    summary: "A friendly assistant that talks and listens in Hindi and English.",
     intro:
       "JPsyche is a supportive AI chat companion. People have natural conversations with it, can edit what they said earlier, and can listen to replies read aloud in a natural Hindi or English voice. It shows what a smart assistant on your own website could do.",
     image: "/project3.png",
     live: "https://jpsyche.vercel.app",
+    liveHost: "jpsyche.vercel.app",
+    uses: [
+      "Answer enquiries 24/7, in your customer’s language",
+      "Qualify leads before you call back",
+      "Hand off to WhatsApp when it’s time to talk",
+    ],
     features: [
       {
         title: "Natural conversations",

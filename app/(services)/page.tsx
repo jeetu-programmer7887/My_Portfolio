@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import CtaBand from "@/components/services/CtaBand";
-import Audience from "@/sections/services/Audience";
+import Founding from "@/sections/services/Founding";
+import FunnelSteps from "@/sections/services/FunnelSteps";
 import Hero from "@/sections/services/Hero";
-import Packages from "@/sections/services/Packages";
+import Lanes from "@/sections/services/Lanes";
+import Marquee from "@/sections/services/Marquee";
+import Pricing from "@/sections/services/Pricing";
 import Process from "@/sections/services/Process";
-import ServiceGrid from "@/sections/services/ServiceGrid";
 import WorkPreview from "@/sections/services/WorkPreview";
 
 export const metadata: Metadata = {
@@ -14,9 +16,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     siteName: "Jeetu Prasad",
     url: "/",
-    title: "Jeetu Prasad | Websites that bring you more customers",
+    title: "Jeetu Prasad | Websites & funnels that turn traffic into customers",
     description:
-      "Jeetu Prasad is a web developer in Mumbai building fast, mobile-friendly websites and web apps for shops, clinics, coaching centres and agencies — built, launched and looked after.",
+      "Jeetu Prasad builds websites and funnels in Mumbai — business websites that build trust, and landing pages and lead funnels that turn visitors into enquiries, bookings or sales.",
   },
 };
 
@@ -24,11 +26,13 @@ export default function ServicesHome() {
   return (
     <>
       <Hero />
-      <Audience />
-      <ServiceGrid />
+      <Marquee />
+      <FunnelSteps />
+      <Lanes />
       <WorkPreview />
+      <Pricing />
+      <Founding />
       <Process />
-      <Packages variant="teaser" />
       {/* id="contact" keeps old jeetuprasad.in/#contact links landing somewhere useful. */}
       <CtaBand id="contact" />
     </>

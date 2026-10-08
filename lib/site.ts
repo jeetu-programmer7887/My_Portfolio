@@ -27,7 +27,7 @@ export const site = {
 } as const;
 
 /** Prefilled WhatsApp chat link. */
-export function whatsappLink(message = "Hi Jeetu, I'd like to discuss a website for my business.") {
+export function whatsappLink(message = "Hi Jeetu, I'd like a free website/funnel audit.") {
   return `${site.whatsappHref}?text=${encodeURIComponent(message)}`;
 }
 

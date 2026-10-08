@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     // Services site
     entry("/", 1),
-    entry("/services", 0.9),
     entry("/contact", 0.8),
     ...showcase.map((item) => entry(`/work/${item.slug}`, 0.7)),
     // Developer portfolio
