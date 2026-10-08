@@ -2,39 +2,42 @@ import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import SiteHeader from "@/components/services/SiteHeader";
 import SiteFooter from "@/components/services/SiteFooter";
+import SiteMotion from "@/components/services/motion/SiteMotion";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { personSchema, site } from "@/lib/site";
 import "./services.css";
 
+// Variable Archivo with its width axis — the design uses font-stretch for headings.
 const archivo = Archivo({
   subsets: ["latin"],
+  axes: ["wdth"],
   variable: "--font-archivo",
   display: "swap",
 });
 
 const description =
-  "Jeetu Prasad is a web developer in Mumbai building fast, mobile-friendly websites and web apps for shops, clinics, coaching centres and agencies — built, launched and looked after.";
+  "Jeetu Prasad builds websites and funnels in Mumbai — business websites that build trust, and landing pages and lead funnels that turn visitors into enquiries, bookings or sales.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Jeetu Prasad | Website Developer for Local Businesses in Mumbai",
+    default: "Jeetu Prasad | Websites & Funnels for Businesses in Mumbai",
     template: "%s | Jeetu Prasad",
   },
   description,
   keywords: [
     "Jeetu Prasad",
     "website developer Mumbai",
-    "website developer for small business",
-    "web designer for local business Mumbai",
+    "landing page developer Mumbai",
+    "sales funnel developer India",
+    "lead funnel for coaches",
     "website for clinic",
-    "website for coaching centre",
-    "online store developer India",
-    "landing page developer",
-    "Full Stack Developer Mumbai",
+    "website for dentist Mumbai",
+    "website for small business",
+    "white label web developer for agencies",
     "Freelance Web Developer India",
     "Next.js Developer",
-    "React Developer Mumbai",
+    "Full Stack Developer Mumbai",
   ],
   authors: [{ name: "Jeetu Prasad", url: site.url }],
   creator: "Jeetu Prasad",
@@ -53,12 +56,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: "Jeetu Prasad",
-    title: "Jeetu Prasad | Websites that bring you more customers",
+    title: "Jeetu Prasad | Websites & funnels that turn traffic into customers",
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jeetu Prasad | Websites that bring you more customers",
+    title: "Jeetu Prasad | Websites & funnels that turn traffic into customers",
     description,
     creator: site.socials.xHandle,
   },
@@ -75,8 +78,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAF6F1" },
-    { media: "(prefers-color-scheme: dark)", color: "#241A14" },
+    { media: "(prefers-color-scheme: light)", color: "#F2EBE2" },
+    { media: "(prefers-color-scheme: dark)", color: "#17110D" },
   ],
 };
 
@@ -90,14 +93,14 @@ const schemaData = {
     {
       "@type": "ProfessionalService",
       "@id": `${site.url}/#business`,
-      name: "Jeetu Prasad — Web Development",
+      name: "Jeetu Prasad — Websites & Funnels",
       description,
       url: site.url,
       email: site.email,
       telephone: "+917887783809",
       image: `${site.url}${site.portrait}`,
       logo: `${site.url}${site.servicesIcons.icon512}`,
-      priceRange: "₹9,999 – ₹39,999",
+      priceRange: "₹5,000 – ₹50,000+",
       founder: { "@id": `${site.url}/#person` },
       address: {
         "@type": "PostalAddress",
@@ -110,10 +113,10 @@ const schemaData = {
       serviceType: [
         "Business websites",
         "Landing pages",
-        "Online stores",
-        "Custom web apps",
-        "AI chatbots",
-        "Website maintenance",
+        "Lead funnels",
+        "Website and funnel systems",
+        "Marketing automation",
+        "White-label websites for agencies",
       ],
     },
     {
@@ -126,29 +129,30 @@ const schemaData = {
   ],
 };
 
-// Runs before first paint so a returning dark-theme visitor never sees a light flash.
-const themeScript = `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();`;
+// Runs before first paint: applies the saved theme (no light flash for dark-theme
+// visitors) and turns on entrance animations unless reduced motion is preferred.
+// If the app never hydrates, the animations switch off again so nothing stays hidden.
+const headScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t==="dark"||t==="light"){d.setAttribute("data-theme",t);}}catch(e){}if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-motion","");setTimeout(function(){if(!d.hasAttribute("data-motion-ready"))d.removeAttribute("data-motion");},6000);}})();`;
 
 export default function ServicesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-theme="light" className={archivo.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: headScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       </head>
-      <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
+      <body className="min-h-screen font-sans antialiased">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink"
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <SiteFooter />
+        <SiteMotion>
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
+        </SiteMotion>
       </body>
     </html>
   );

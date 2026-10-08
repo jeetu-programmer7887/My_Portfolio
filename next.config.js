@@ -18,6 +18,12 @@ const nextConfig = {
         destination: "/portfolio",
         permanent: true,
       },
+      // The separate services & pricing page was folded into the home page.
+      {
+        source: "/services",
+        destination: "/#pricing",
+        permanent: true,
+      },
     ];
   },
 };

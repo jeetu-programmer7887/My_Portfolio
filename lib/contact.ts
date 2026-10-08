@@ -1,18 +1,22 @@
-// Enquiry validation shared by the services contact form and /api/contact.
+// Audit-request validation shared by the services contact form and /api/contact.
 
-export const BUSINESS_TYPES = [
-  "Shop / store",
-  "Clinic",
-  "Coaching centre",
-  "Agency / marketer",
-  "Other",
+export const NEEDS = [
+  "Business website",
+  "Landing page",
+  "Lead funnel",
+  "Website + Funnel",
+  "Agency partnership",
+  "Not sure yet",
 ] as const;
+
+export const DEFAULT_NEED: (typeof NEEDS)[number] = "Website + Funnel";
 
 export interface Enquiry {
   name: string;
   email: string;
   phone: string;
-  business: string;
+  website: string;
+  need: string;
   message: string;
   source: string;
 }
@@ -21,6 +25,8 @@ type Result = { ok: true; data: Enquiry } | { ok: false; error: string };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^[0-9+()\-\s]{6,20}$/;
+// Lenient: "mysite.in", "www.mysite.in/page" and full https:// URLs all pass.
+const WEBSITE_RE = /^(https?:\/\/)?[^\s/?#]+\.[^\s/?#]{2,}(\S*)$/i;
 
 function text(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -35,19 +41,21 @@ export function validateEnquiry(input: Record<string, unknown>): Result {
   const name = oneLine(text(input.name, 100));
   const email = oneLine(text(input.email, 254));
   const phone = oneLine(text(input.phone, 20));
-  const business = oneLine(text(input.business, 40));
+  const website = oneLine(text(input.website, 200));
+  const need = oneLine(text(input.need, 40));
   const message = text(input.message, 5000);
   const source = input.source === "services" ? "services" : "unknown";
 
   if (name.length < 2) return { ok: false, error: "Please enter your name." };
   if (!EMAIL_RE.test(email)) return { ok: false, error: "Please enter a valid email address." };
   if (phone && !PHONE_RE.test(phone)) return { ok: false, error: "Please enter a valid phone number." };
-  if (!(BUSINESS_TYPES as readonly string[]).includes(business)) {
-    return { ok: false, error: "Please choose your type of business." };
+  if (website && !WEBSITE_RE.test(website)) return { ok: false, error: "Please enter a valid website address." };
+  if (!(NEEDS as readonly string[]).includes(need)) {
+    return { ok: false, error: "Please choose what you need." };
   }
-  if (message.length < 10) return { ok: false, error: "Please tell me a little more about what you need." };
+  if (message.length < 10) return { ok: false, error: "Please tell me a little more about your business and goal." };
 
-  return { ok: true, data: { name, email, phone, business, message, source } };
+  return { ok: true, data: { name, email, phone, website, need, message, source } };
 }
 
 export function escapeHtml(value: string) {

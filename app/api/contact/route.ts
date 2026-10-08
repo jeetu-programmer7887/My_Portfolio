@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { escapeHtml, validateEnquiry, type Enquiry } from "@/lib/contact";
 import { site } from "@/lib/site";
 
-// Services-site enquiries → Brevo transactional email API.
+// Services-site audit requests → Brevo transactional email API.
 // Secrets are server-only (no NEXT_PUBLIC_ prefix). See .env.example.
 const BREVO_ENDPOINT = "https://api.brevo.com/v3/smtp/email";
 
@@ -73,7 +73,8 @@ function ownerEmail(e: Enquiry) {
     ["Name", e.name],
     ["Email", e.email],
     ["Phone", e.phone || "—"],
-    ["Business", e.business],
+    ["Needs", e.need],
+    ["Current website", e.website || "—"],
     ["Source", `jeetuprasad.in (${e.source})`],
   ];
   const tableRows = rows
@@ -84,29 +85,31 @@ function ownerEmail(e: Enquiry) {
     .join("");
 
   return {
-    subject: `New enquiry: ${e.name} (${e.business})`,
+    subject: `New audit request: ${e.name} (${e.need})`,
     htmlContent: `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#2B1F18">
-<h2 style="margin:0 0 12px;color:#A65A2E">New website enquiry</h2>
+<h2 style="margin:0 0 12px;color:#A65A2E">New free-audit request</h2>
 <table style="border-collapse:collapse">${tableRows}</table>
-<p style="margin:20px 0 6px;color:#6E5E53;font-weight:600">Message</p>
+<p style="margin:20px 0 6px;color:#6E5E53;font-weight:600">Business &amp; goal</p>
 <p style="margin:0;white-space:pre-wrap">${escapeHtml(e.message)}</p>
 <p style="margin:24px 0 0;font-size:13px;color:#6E5E53">Reply to this email to answer ${escapeHtml(e.name)} directly.</p>
 </div>`,
-    textContent: `New website enquiry\n\n${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nMessage:\n${e.message}\n`,
+    textContent: `New free-audit request\n\n${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nBusiness & goal:\n${e.message}\n`,
   };
 }
 
 function acknowledgementEmail(e: Enquiry) {
   const firstName = e.name.split(" ")[0];
+  const promise =
+    "Thank you for your audit request. Within 24 hours I will email you three specific, honest fixes for your website or offer — whether we work together or not.";
   return {
-    subject: "Thank you for reaching out — Jeetu Prasad",
+    subject: "Your free audit request — Jeetu Prasad",
     htmlContent: `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#2B1F18">
 <p>Hi ${escapeHtml(firstName)},</p>
-<p>Thank you for reaching out. I will reply to you within 24 hours by email.</p>
+<p>${promise}</p>
 <p>If it's urgent, you can call or WhatsApp me at <a href="${site.whatsappHref}" style="color:#A65A2E">${site.phoneDisplay}</a>.</p>
-<p style="margin-top:24px">Jeetu Prasad<br><span style="color:#6E5E53">Web Development · <a href="${site.url}" style="color:#A65A2E">jeetuprasad.in</a></span></p>
+<p style="margin-top:24px">Jeetu Prasad<br><span style="color:#6E5E53">Websites &amp; funnels · <a href="${site.url}" style="color:#A65A2E">jeetuprasad.in</a></span></p>
 </div>`,
-    textContent: `Hi ${firstName},\n\nThank you for reaching out. I will reply to you within 24 hours by email.\n\nIf it's urgent, you can call or WhatsApp me at ${site.phoneDisplay}.\n\nJeetu Prasad\nWeb Development · ${site.url}\n`,
+    textContent: `Hi ${firstName},\n\n${promise}\n\nIf it's urgent, you can call or WhatsApp me at ${site.phoneDisplay}.\n\nJeetu Prasad\nWebsites & funnels · ${site.url}\n`,
   };
 }
 
